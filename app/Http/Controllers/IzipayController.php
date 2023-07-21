@@ -12,12 +12,12 @@ class IzipayController extends Controller
     private $client;
 
     public function __construct() {
-        Client::setDefaultUsername(44532503);
-        Client::setDefaultPassword('testpassword_x0ZDVlzhOnkCMiSGpOQ9rLbQUlKYmunHSfI5SN54avffE');
-        Client::setDefaultEndpoint('https://api.micuentaweb.pe');
-        Client::setDefaultPublicKey('44532503:testpublickey_csSdGM0KnIzIy0hYRj29NoDYjBKV6uDAfP42sIonUhG7u');
-        Client::setDefaultSHA256Key('WLYdcwRkqenw7j9hgKmZU4yhQ91gnqQ36S95YwBh7ByE8');
-        Client::setDefaultClientEndpoint('https://static.micuentaweb.pe');
+        Client::setDefaultUsername( env('IZIPAY_USERNAME') );
+        Client::setDefaultPassword( env('IZIPAY_PASSWORD') );
+        Client::setDefaultEndpoint( env('IZIPAY_ENDPOINT') );
+        Client::setDefaultPublicKey( env('IZIPAY_PUBLIC_KEY') );
+        Client::setDefaultSHA256Key( env('IZIPAY_SHA256_KEY') );
+        Client::setDefaultClientEndpoint( env('IZIPAY_CLIENT_ENDPOINT') );
 
         $this->client = new Client();
     }
