@@ -108,6 +108,38 @@ class IzipayController extends Controller
          * HTTP response code should be 200
          */
         print 'OK! OrderStatus is ' . $orderStatus;
-
     }
+
+    public function createPayment(Request $request){
+
+        $store = array(
+            "amount" => 250,
+            "currency" => "PEN",
+            "orderId" => uniqid("MyOrderId"),
+            "customer" => array(
+                "email" => "sample@example.com"
+            )
+        );
+
+        $response = $this->client->post("V4/Charge/CreatePayment", $store);
+
+        /* I check if there are some errors */
+        if ($response['status'] != 'SUCCESS') {
+            /* an error occurs, I throw an exception */
+            echo($response);
+            $error = $response['answer'];
+            throw new LyraException("error " . $error['errorCode'] . ": " . $error['errorMessage'] );
+        }
+        /* everything is fine, I extract the formToken */
+        $formToken = $response["answer"]["formToken"];
+        
+        $data = [
+            'status' => 200,
+            'formToken' => $formToken
+        ];
+
+        return response()->json($data);
+    }
+    
+    
 }

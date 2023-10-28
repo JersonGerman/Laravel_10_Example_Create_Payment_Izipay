@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('ipn', [IzipayController::class, 'notificationIpn']);
+
+Route::post('createPayment', [IzipayController::class, 'createPayment']);
